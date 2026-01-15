@@ -23,7 +23,7 @@ export function nestedToFlat(object) {
                 newObject[`${key}.${nestedKey}`] = nestedObject[nestedKey];
             });
         } else {
-            newObject[key] =value;
+            newObject[key] = value;
         }
     });
 

@@ -1,35 +1,43 @@
 {
-  "name": "qr-code-styling-site",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack --mode=production --config webpack.config.js",
-    "start": "webpack-dev-server --mode=development --open --config webpack.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kozakdenys/qr-code-styling-site.git"
-  },
-  "author": "Denys Kozak <kozak.denys.dev@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kozakdenys/qr-code-styling-site/issues"
-  },
-  "homepage": "https://qr-code-styling.com",
-  "dependencies": {
-    "qr-code-styling": "1.8.4"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^3.2.0",
-    "file-loader": "^4.2.0",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.11.0"
-  }
+    "name": "qr",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build:check": "npm run check && webpack --mode=production --config webpack.config.js",
+        "build": "webpack --mode=production --config webpack.config.js",
+        "start": "webpack-dev-server --mode=development --open --config webpack.config.js",
+        "lint": "eslint src/",
+        "lint:fix": "eslint src/ --fix",
+        "format": "prettier --write src/",
+        "format:check": "prettier --check src/",
+        "check": "npm run format && npm run lint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AlexAlvarez092/qr.git"
+    },
+    "author": "Alex Alvarez",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/AlexAlvarez092/qr/issues"
+    },
+    "homepage": "https://alexalvarez092.github.io/qr/",
+    "dependencies": {
+        "qr-code-styling": "^1.9.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "@eslint/js": "^9.39.2",
+        "babel-loader": "^9.2.1",
+        "css-loader": "^7.1.2",
+        "eslint": "^9.39.2",
+        "html-webpack-plugin": "^5.6.3",
+        "mini-css-extract-plugin": "^2.9.2",
+        "prettier": "^3.8.0",
+        "webpack": "^5.104.1",
+        "webpack-cli": "^6.0.1",
+        "webpack-dev-server": "^5.2.0"
+    }
 }

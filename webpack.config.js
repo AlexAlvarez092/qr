@@ -1,45 +1,46 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const rootPath = path.resolve(__dirname, "./");
 const srcPath = path.resolve(rootPath, "src");
-const docsPath = path.resolve(rootPath, "docs");
+const distPath = path.resolve(rootPath, "dist");
 
 const config = {
     entry: srcPath + "/index.js",
     output: {
-        path: docsPath,
-        filename: "index.[contenthash].js"
+        path: distPath,
+        filename: "index.[contenthash].js",
+        clean: true, // Webpack 5: reemplaza clean-webpack-plugin
+        assetModuleFilename: "assets/[hash][ext]", // Webpack 5: configura nombres de assets
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 include: srcPath,
-                loader: "babel-loader"
+                loader: "babel-loader",
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                // Webpack 5: Asset Modules reemplaza file-loader
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 include: srcPath,
-                loader: "file-loader"
+                type: "asset/resource",
             },
             {
                 test: /\.css$/,
-                use: [ MiniCssExtractPlugin.loader, "css-loader"]
-            }
-        ]
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
+            },
+        ],
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: srcPath + "/index.html"
+            template: srcPath + "/index.html",
         }),
         new MiniCssExtractPlugin({
-            filename: "index.[contenthash].css"
-        })
-    ]
+            filename: "index.[contenthash].css",
+        }),
+    ],
 };
 
 module.exports = (env, argv) => {

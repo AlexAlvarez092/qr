@@ -32,7 +32,6 @@ export default class NodesBinder {
                 data: flatUpdatedState[path],
             });
         });
-
     }
 
     onStateUpdate(listener) {
@@ -93,6 +92,6 @@ export default class NodesBinder {
                 field: node.getAttribute(this._getNodeKey()),
                 data: this._getNodeState(node),
             });
-        }
+        };
     }
 }
