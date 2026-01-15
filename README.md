@@ -1,4 +1,4 @@
-# QR Code Styling
+# QR Studio
 
 Custom QR code generator with styles, colors, and images.
 
@@ -38,6 +38,12 @@ npm run build    # Generate production build in /dist
 | `@babel/preset-env`       | Babel preset that transpiles ES6+ to compatible versions based on target browsers             |
 | `eslint`                  | Linter to identify and report problematic patterns in JavaScript code                         |
 | `prettier`                | Code formatter to maintain consistent style                                                   |
+| `@eslint/js`              | ESLint rules and config for modern JS projects                                                |
+| `@tailwindcss/postcss`    | Tailwind CSS v4 PostCSS plugin for build integration                                          |
+| `autoprefixer`            | Adds vendor prefixes to CSS automatically                                                     |
+| `postcss`                 | Tool for transforming CSS with JavaScript plugins                                             |
+| `postcss-loader`          | Loader to process CSS with PostCSS in webpack                                                 |
+| `tailwindcss`             | Utility-first CSS framework for rapid UI development                                          |
 
 ## License
 
@@ -68,7 +74,12 @@ This project is a fork of [qr-code-styling demo](https://github.com/kozakdenys/q
 - **Smart QR Mode validation** - Automatically disables incompatible modes (Numeric, Alphanumeric) based on input data
 - **Smart Type Number validation** - Dynamically calculates and enforces minimum Type Number based on data length and error correction level
 - **Removed Kanji mode** - Simplified mode options
+- **Full UI redesign with Tailwind CSS** - The entire user interface has been rebuilt from scratch using Tailwind utility classes for a modern, responsive, and accessible look
 
 ### Removed Features
 
 - **Google Analytics** - Removed tracking code from the original project
+
+## Acknowledgements
+
+This project is based on the original work [qr-code-styling](https://github.com/kozakdenys/qr-code-styling) by Denys Kozak. Many thanks to Denys for creating and maintaining the core library and demo, which made this project possible.
