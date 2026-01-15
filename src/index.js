@@ -2,7 +2,6 @@ import QrCodeStyling from "qr-code-styling";
 import "./index.css";
 import NodesBinder from "./js/nodes-binder";
 import { getSrcFromFile } from "./js/tools";
-import defaultImage from "./assets/logo.png";
 
 const form = document.getElementById("form");
 
@@ -15,7 +14,7 @@ delete initState.dotsOptions.gradient;
 
 const qrCode = new QrCodeStyling({
     ...initState,
-    image: defaultImage,
+    image: "",
 });
 
 const typeNumberInput = document.getElementById("form-qr-type-number");
@@ -315,6 +314,33 @@ document.getElementById("button-cancel").onclick = () => {
     nodesBinder.setState({ image: new DataTransfer().files });
 };
 
+// Disable image reset button if no file is selected
+const imageInput = document.getElementById("form-image-file");
+const imageResetBtn = document.getElementById("button-cancel");
+
+function updateImageResetButtonState() {
+    const hasImage = imageInput.files && imageInput.files.length > 0;
+    imageResetBtn.disabled = !hasImage;
+    if (!hasImage) {
+        imageResetBtn.classList.add("opacity-50", "cursor-not-allowed");
+    } else {
+        imageResetBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    }
+}
+
+// Initial state
+updateImageResetButtonState();
+
+// Listen for image changes
+imageInput.addEventListener("input", updateImageResetButtonState);
+imageInput.addEventListener("change", updateImageResetButtonState);
+
+// Reset button click handler
+imageResetBtn.onclick = () => {
+    nodesBinder.setState({ image: new DataTransfer().files });
+    updateImageResetButtonState();
+};
+
 // Reset color buttons - restore default values
 const defaultColors = {
     dotsOptions: "#149cb8",
@@ -377,26 +403,31 @@ colorResetConfig.forEach(({ inputId, buttonId, optionKey }) => {
     };
 });
 
-document.getElementById("qr-download").onclick = () => {
-    const extension = document.getElementById("qr-extension").value;
-    qrCode.download({ extension, name: "qr-code-styling" });
-};
+// Export format selection logic (no hidden select)
 
-// Format selection buttons in export bar
-const formatButtons = document.querySelectorAll(".qr-export__format");
-const extensionSelect = document.getElementById("qr-extension");
+function setActiveExportFormat(format) {
+    exportFormat = format;
+    document.querySelectorAll(".qr-export__format").forEach(btn => {
+        if (btn.dataset.format === format) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+}
 
-formatButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        // Remove active class from all buttons
-        formatButtons.forEach(b => b.classList.remove("active"));
-        // Add active class to clicked button
-        btn.classList.add("active");
-        // Update the hidden select
-        const format = btn.dataset.format;
-        extensionSelect.value = format;
+let exportFormat = "png";
+document.querySelectorAll(".qr-export__format").forEach(btn => {
+    btn.addEventListener("click", function () {
+        document.querySelectorAll(".qr-export__format").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        exportFormat = this.dataset.format;
     });
 });
+
+document.getElementById("qr-download").onclick = () => {
+    qrCode.download({ extension: exportFormat, name: "qr-code-styling" });
+};
 
 // Style picker buttons (visual style selection)
 document.querySelectorAll(".style-picker").forEach(picker => {
@@ -446,3 +477,25 @@ for (let i = 0; i < acc.length; i++) {
         this.nextElementSibling.classList.toggle("panel--open");
     });
 }
+
+// Theme switch logic
+const themeSwitch = document.getElementById("theme-switch");
+const themeSwitchKnob = document.getElementById("theme-switch-knob");
+const htmlTag = document.documentElement;
+
+function updateThemeSwitchUI() {
+    const isDark = htmlTag.classList.contains("dark");
+    themeSwitch.checked = isDark;
+    themeSwitchKnob.style.left = isDark ? "1.5rem" : "0.25rem";
+}
+
+themeSwitch.addEventListener("change", () => {
+    if (themeSwitch.checked) {
+        htmlTag.classList.add("dark");
+    } else {
+        htmlTag.classList.remove("dark");
+    }
+    updateThemeSwitchUI();
+});
+
+window.addEventListener("DOMContentLoaded", updateThemeSwitchUI);
