@@ -42,3 +42,33 @@ npm run build    # Generate production build in /dist
 ## License
 
 MIT
+
+## Changes from Original Project
+
+This project is a fork of [qr-code-styling demo](https://github.com/kozakdenys/qr-code-styling) by Denys Kozak. The following changes have been made:
+
+### Dependencies & Build System
+
+- **Upgraded to Webpack 5** - Migrated from Webpack 4 to 5
+- **Added code quality tools**: ESLint and Prettier with configuration files
+
+### Code Refactoring
+
+- **Refactored `index.js`** - Reduced several lines of repetitive code using a configuration-driven approach
+- **Refactored `nodes-binder.js`** - Modernized with ES2022 private fields (`#`), JSDoc documentation, and better error handling
+- **Refactored `tools.js`** - Converted callback-based `getSrcFromFile` to Promise-based, removed unused `getValueViaDotNotation` function
+
+### Bug Fixes
+
+- **Fixed `getPerceptualBrightness`** - Corrected `substring(5, 6)` to `substring(5, 7)` for proper blue channel parsing
+- **Fixed accordion functionality** - All accordions now work correctly using CSS class toggles instead of inline styles
+
+### UI/UX Improvements
+
+- **Smart QR Mode validation** - Automatically disables incompatible modes (Numeric, Alphanumeric) based on input data
+- **Smart Type Number validation** - Dynamically calculates and enforces minimum Type Number based on data length and error correction level
+- **Removed Kanji mode** - Simplified mode options
+
+### Removed Features
+
+- **Google Analytics** - Removed tracking code from the original project

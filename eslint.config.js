@@ -25,7 +25,7 @@ export default [
             "no-console": "off",
             semi: ["error", "always"],
             quotes: ["error", "double"],
-            indent: ["error", 4],
+            indent: ["error", 4, { SwitchCase: 1 }],
             "no-multiple-empty-lines": ["error", { max: 1 }],
             eqeqeq: ["error", "always"],
             curly: ["error", "all"],

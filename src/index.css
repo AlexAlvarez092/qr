@@ -244,6 +244,7 @@ input[type="number"] {
     min-height: 30vh;
     justify-content: center;
     font-size: 21px;
+    background: linear-gradient(90deg, #000 0%, #6a1a4c 50%, #ffffff 100%);
 }
 
 .qr-description__lib-name {
