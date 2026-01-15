@@ -29,13 +29,14 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"],
+                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
             },
         ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: srcPath + "/index.html",
+            favicon: srcPath + "/assets/qr_trans.png",
         }),
         new MiniCssExtractPlugin({
             filename: "index.[contenthash].css",

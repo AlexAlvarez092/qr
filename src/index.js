@@ -315,28 +315,109 @@ document.getElementById("button-cancel").onclick = () => {
     nodesBinder.setState({ image: new DataTransfer().files });
 };
 
-document.getElementById("button-clear-corners-square-color").onclick = () => {
-    const state = nodesBinder.getState();
-    nodesBinder.setState({
-        cornersSquareOptions: {
-            color: state.dotsOptions.color,
-        },
-    });
+// Reset color buttons - restore default values
+const defaultColors = {
+    dotsOptions: "#149cb8",
+    cornersSquareOptions: "#149cb8",
+    cornersDotOptions: "#149cb8",
+    backgroundOptions: "#ffffff",
 };
 
-document.getElementById("button-clear-corners-dot-color").onclick = () => {
-    const state = nodesBinder.getState();
-    nodesBinder.setState({
-        cornersDotOptions: {
-            color: state.dotsOptions.color,
-        },
+// Color reset button configuration
+const colorResetConfig = [
+    { inputId: "form-dots-color", buttonId: "button-reset-dots-color", optionKey: "dotsOptions" },
+    {
+        inputId: "form-corners-square-color",
+        buttonId: "button-reset-corners-square-color",
+        optionKey: "cornersSquareOptions",
+    },
+    {
+        inputId: "form-corners-dot-color",
+        buttonId: "button-reset-corners-dot-color",
+        optionKey: "cornersDotOptions",
+    },
+    {
+        inputId: "form-background-color",
+        buttonId: "button-reset-background-color",
+        optionKey: "backgroundOptions",
+    },
+];
+
+// Update reset button disabled state
+function updateResetButtonState(inputId, buttonId, optionKey) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    const isDefault = input.value.toLowerCase() === defaultColors[optionKey].toLowerCase();
+    button.disabled = isDefault;
+    if (isDefault) {
+        button.classList.add("opacity-50", "cursor-not-allowed");
+    } else {
+        button.classList.remove("opacity-50", "cursor-not-allowed");
+    }
+}
+
+// Initialize reset buttons and add listeners
+colorResetConfig.forEach(({ inputId, buttonId, optionKey }) => {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+
+    // Initial state
+    updateResetButtonState(inputId, buttonId, optionKey);
+
+    // Listen for color changes
+    input.addEventListener("input", () => {
+        updateResetButtonState(inputId, buttonId, optionKey);
     });
-};
+
+    // Reset button click handler
+    button.onclick = () => {
+        nodesBinder.setState({ [optionKey]: { color: defaultColors[optionKey] } });
+        input.value = defaultColors[optionKey];
+        updateResetButtonState(inputId, buttonId, optionKey);
+    };
+});
 
 document.getElementById("qr-download").onclick = () => {
     const extension = document.getElementById("qr-extension").value;
     qrCode.download({ extension, name: "qr-code-styling" });
 };
+
+// Format selection buttons in export bar
+const formatButtons = document.querySelectorAll(".qr-export__format");
+const extensionSelect = document.getElementById("qr-extension");
+
+formatButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // Remove active class from all buttons
+        formatButtons.forEach(b => b.classList.remove("active"));
+        // Add active class to clicked button
+        btn.classList.add("active");
+        // Update the hidden select
+        const format = btn.dataset.format;
+        extensionSelect.value = format;
+    });
+});
+
+// Style picker buttons (visual style selection)
+document.querySelectorAll(".style-picker").forEach(picker => {
+    const targetId = picker.dataset.target;
+    const targetSelect = document.getElementById(targetId);
+
+    picker.querySelectorAll(".style-picker__btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            // Update active state
+            picker
+                .querySelectorAll(".style-picker__btn")
+                .forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Update hidden select and trigger change
+            const value = btn.dataset.value;
+            targetSelect.value = value;
+            targetSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+    });
+});
 
 //Download options
 // document.getElementById("export-options").addEventListener("click", function () {
@@ -350,9 +431,18 @@ const acc = document.getElementsByClassName("accordion");
 
 for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
-        this.classList.toggle("accordion--open");
+        const isOpening = !this.classList.contains("accordion--open");
 
-        const panel = this.nextElementSibling;
-        panel.classList.toggle("panel--open");
+        // Close all other accordions
+        for (let j = 0; j < acc.length; j++) {
+            if (acc[j] !== this) {
+                acc[j].classList.remove("accordion--open");
+                acc[j].nextElementSibling.classList.remove("panel--open");
+            }
+        }
+
+        // Toggle current accordion
+        this.classList.toggle("accordion--open");
+        this.nextElementSibling.classList.toggle("panel--open");
     });
 }
