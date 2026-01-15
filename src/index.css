@@ -13,11 +13,6 @@
     --color-border-dark: #343841;
 
     --font-family-display: "Space Grotesk", sans-serif;
-
-    --radius: 0.25rem;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
-    --radius-full: 9999px;
 }
 
 /* Dark mode variant */
