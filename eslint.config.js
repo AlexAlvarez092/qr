@@ -12,6 +12,7 @@ export default [
                 document: "readonly",
                 console: "readonly",
                 FileReader: "readonly",
+                DataTransfer: "readonly",
                 // Node globals (for webpack config)
                 module: "readonly",
                 require: "readonly",

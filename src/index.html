@@ -3,31 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="Generate branded QR code online, you can add image and color to your QR code. Use the QR code styling library in your site to generate QR codes dynamically."
-        />
-        <meta
-            name="keywords"
-            content="qr, qr code, qrcode, style, styling, brand, branding, color, image, create, creating, generate, generator, generating"
-        />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
         <link
             rel="shortcut icon"
             type="image/x-icon"
             href="<%=require('./assets/qr_trans.png')%>"
         />
-        <title>QR Code Styling</title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149838823-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-
-            gtag("config", "UA-149838823-1");
-        </script>
+        <title>QR Generator</title>
     </head>
     <body>
         <header class="container qr-header">
@@ -39,28 +20,13 @@
                         alt="QR code styling logo"
                     />
                 </div>
-                <a
-                    target="_blank"
-                    rel="noopener"
-                    class="col white"
-                    href="https://www.npmjs.com/package/qr-code-styling"
-                    >npm v1.8.3</a
-                >
-                <a
-                    target="_blank"
-                    rel="noopener"
-                    class="col white"
-                    href="https://github.com/kozakdenys/qr-code-styling"
-                    >GitHub</a
-                >
             </div>
         </header>
         <main>
             <section class="container qr-description" id="qr-description">
                 <div class="col">
-                    <h1 class="qr-description__lib-name">QR Code Styling</h1>
-                    <p>An open source JS library</p>
-                    <p>For generating styled QR codes</p>
+                    <h1 class="qr-description__lib-name">QR Code Generator</h1>
+                    <p>A free tool for generating QR codes</p>
                 </div>
             </section>
             <section class="container">
@@ -76,9 +42,9 @@
                                 node-change-event="oninput"
                                 id="form-data"
                                 type="text"
-                                value="https://qr-code-styling.com"
+                                value="https://alexalvarez092.github.io/qr/"
                             >
-https://qr-code-styling.com</textarea
+https://alexalvarez092.github.io/qr/</textarea
                             >
                             <label for="form-image-file">Image File</label>
                             <div class="buttons-container">
@@ -696,9 +662,11 @@ https://qr-code-styling.com</textarea
                                 </select>
                             </div>
                         </div>
+                        <!--
                         <div class="options-export-group">
                             <a class="button" id="export-options">Export Options as JSON</a>
                         </div>
+                        -->
                     </form>
                     <div class="col qr-code-container">
                         <div class="qr-code" id="qr-code-generated"></div>
@@ -717,15 +685,11 @@ https://qr-code-styling.com</textarea
                     <div class="col">
                         <p>
                             If you have any questions or issues please contact me via
-                            <a class="black" rel="noopener" href="mailto:kozak.denys.dev@gmail.com"
-                                >email</a
-                            >
-                            or
                             <a
                                 class="black"
                                 target="_blank"
                                 rel="noopener"
-                                href="https://github.com/kozakdenys/qr-code-styling"
+                                href="https://github.com/AlexAlvarez092/qr/issues"
                                 >GitHub Issues</a
                             >.
                         </p>
@@ -735,9 +699,13 @@ https://qr-code-styling.com</textarea
         </main>
         <footer class="container qr-footer">
             <div class="col">
-                © 2024
-                <a target="_blank" rel="noopener" class="white" href="https://linktr.ee/denys.kozak"
-                    >Denys Kozak</a
+                © 2026
+                <a
+                    target="_blank"
+                    rel="noopener"
+                    class="white"
+                    href="https://github.com/AlexAlvarez092"
+                    >Alex Alvarez</a
                 >
             </div>
         </footer>

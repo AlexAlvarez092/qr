@@ -141,12 +141,8 @@ input[type="number"] {
     content: "\2212";
 }
 
-.accordion.accordion--open {
-    cursor: auto;
-}
-
 .accordion.accordion--open:after {
-    content: none;
+    content: "\2212";
 }
 
 .accordion:hover {

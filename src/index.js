@@ -37,7 +37,7 @@ function updateDescriptionContainerBackground(backgroundColor, qrColor) {
 function getPerceptualBrightness(color) {
     const r = parseInt(color.substring(1, 3), 16);
     const g = parseInt(color.substring(3, 5), 16);
-    const b = parseInt(color.substring(5, 6), 16);
+    const b = parseInt(color.substring(5, 7), 16);
 
     return r + g + b;
 }
@@ -49,8 +49,6 @@ updateDescriptionContainerBackground(
 
 nodesBinder.onStateUpdate(({ field, data }) => {
     const {
-        image,
-        imageUrl,
         dotsOptionsHelper,
         cornersSquareOptionsHelper,
         cornersDotOptionsHelper,
@@ -60,576 +58,137 @@ nodesBinder.onStateUpdate(({ field, data }) => {
 
     updateDescriptionContainerBackground(state.dotsOptions.color, state.backgroundOptions.color);
 
+    // Handle image field
     if (field === "image") {
         if (data && data[0]) {
             getSrcFromFile(data[0], result => {
-                qrCode.update({
-                    image: result,
-                });
+                qrCode.update({ image: result });
             });
         } else {
+            qrCode.update({ image: null });
+        }
+        return;
+    }
+
+    // Configuration for each options group
+    const optionsConfig = {
+        dotsOptions: { helper: dotsOptionsHelper, prefix: "dotsOptionsHelper" },
+        cornersSquareOptions: {
+            helper: cornersSquareOptionsHelper,
+            prefix: "cornersSquareOptionsHelper",
+        },
+        cornersDotOptions: { helper: cornersDotOptionsHelper, prefix: "cornersDotOptionsHelper" },
+        backgroundOptions: { helper: backgroundOptionsHelper, prefix: "backgroundOptionsHelper" },
+    };
+
+    // Helper function to toggle visibility of elements
+    function toggleColorTypeVisibility(showClass, hideClass) {
+        Array.from(document.getElementsByClassName(showClass)).forEach(el => {
+            el.style.visibility = "visible";
+            el.style.height = "auto";
+        });
+        Array.from(document.getElementsByClassName(hideClass)).forEach(el => {
+            el.style.visibility = "hidden";
+            el.style.height = "0";
+        });
+    }
+
+    // Helper function to create gradient config
+    function createGradientConfig(helper) {
+        return {
+            type: helper.gradient.linear ? "linear" : "radial",
+            rotation: (helper.gradient.rotation / 180) * Math.PI,
+            colorStops: [
+                { offset: 0, color: helper.gradient.color1 },
+                { offset: 1, color: helper.gradient.color2 },
+            ],
+        };
+    }
+
+    // Process options for each group
+    for (const [optionKey, config] of Object.entries(optionsConfig)) {
+        const { helper, prefix } = config;
+
+        // Handle gradient color type selection
+        if (field === `${prefix}.colorType.gradient` && data) {
+            toggleColorTypeVisibility(`${prefix}.colorType.gradient`, `${prefix}.colorType.single`);
             qrCode.update({
-                image: null,
+                [optionKey]: {
+                    color: undefined,
+                    gradient: createGradientConfig(helper),
+                },
             });
+            return;
+        }
+
+        // Handle single color type selection
+        if (field === `${prefix}.colorType.single` && data) {
+            toggleColorTypeVisibility(`${prefix}.colorType.single`, `${prefix}.colorType.gradient`);
+            qrCode.update({
+                [optionKey]: {
+                    color: state[optionKey].color,
+                    gradient: null,
+                },
+            });
+            return;
+        }
+
+        // Handle gradient type: linear
+        if (field === `${prefix}.gradient.linear` && data) {
+            qrCode.update({ [optionKey]: { gradient: { type: "linear" } } });
+            return;
+        }
+
+        // Handle gradient type: radial
+        if (field === `${prefix}.gradient.radial` && data) {
+            qrCode.update({ [optionKey]: { gradient: { type: "radial" } } });
+            return;
+        }
+
+        // Handle gradient color1
+        if (field === `${prefix}.gradient.color1`) {
+            qrCode.update({
+                [optionKey]: {
+                    gradient: {
+                        colorStops: [
+                            { offset: 0, color: data },
+                            { offset: 1, color: helper.gradient.color2 },
+                        ],
+                    },
+                },
+            });
+            return;
+        }
+
+        // Handle gradient color2
+        if (field === `${prefix}.gradient.color2`) {
+            qrCode.update({
+                [optionKey]: {
+                    gradient: {
+                        colorStops: [
+                            { offset: 0, color: helper.gradient.color1 },
+                            { offset: 1, color: data },
+                        ],
+                    },
+                },
+            });
+            return;
+        }
+
+        // Handle gradient rotation
+        if (field === `${prefix}.gradient.rotation`) {
+            qrCode.update({
+                [optionKey]: {
+                    gradient: {
+                        rotation: (helper.gradient.rotation / 180) * Math.PI,
+                    },
+                },
+            });
+            return;
         }
     }
 
-    if (field === "dotsOptionsHelper.colorType.gradient" && data) {
-        const showElements = document.getElementsByClassName(
-            "dotsOptionsHelper.colorType.gradient"
-        );
-        const hideElements = document.getElementsByClassName("dotsOptionsHelper.colorType.single");
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            dotsOptions: {
-                color: undefined,
-                gradient: {
-                    type: dotsOptionsHelper.gradient.linear ? "linear" : "radial",
-                    rotation: (dotsOptionsHelper.gradient.rotation / 180) * Math.PI,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: dotsOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: dotsOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.colorType.single" && data) {
-        const showElements = document.getElementsByClassName("dotsOptionsHelper.colorType.single");
-        const hideElements = document.getElementsByClassName(
-            "dotsOptionsHelper.colorType.gradient"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            dotsOptions: {
-                color: state.dotsOptions.color,
-                gradient: null,
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.gradient.linear" && data) {
-        qrCode.update({
-            dotsOptions: {
-                gradient: {
-                    type: "linear",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.gradient.radial" && data) {
-        qrCode.update({
-            dotsOptions: {
-                gradient: {
-                    type: "radial",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.gradient.color1") {
-        qrCode.update({
-            dotsOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: data,
-                        },
-                        {
-                            offset: 1,
-                            color: dotsOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.gradient.color2") {
-        qrCode.update({
-            dotsOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: dotsOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: data,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "dotsOptionsHelper.gradient.rotation") {
-        qrCode.update({
-            dotsOptions: {
-                gradient: {
-                    rotation: (dotsOptionsHelper.gradient.rotation / 180) * Math.PI,
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.colorType.gradient" && data) {
-        const showElements = document.getElementsByClassName(
-            "cornersSquareOptionsHelper.colorType.gradient"
-        );
-        const hideElements = document.getElementsByClassName(
-            "cornersSquareOptionsHelper.colorType.single"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            cornersSquareOptions: {
-                color: undefined,
-                gradient: {
-                    type: cornersSquareOptionsHelper.gradient.linear ? "linear" : "radial",
-                    rotation: (cornersSquareOptionsHelper.gradient.rotation / 180) * Math.PI,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: cornersSquareOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: cornersSquareOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.colorType.single" && data) {
-        const showElements = document.getElementsByClassName(
-            "cornersSquareOptionsHelper.colorType.single"
-        );
-        const hideElements = document.getElementsByClassName(
-            "cornersSquareOptionsHelper.colorType.gradient"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            cornersSquareOptions: {
-                color: state.cornersSquareOptions.color,
-                gradient: null,
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.gradient.linear" && data) {
-        qrCode.update({
-            cornersSquareOptions: {
-                gradient: {
-                    type: "linear",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.gradient.radial" && data) {
-        qrCode.update({
-            cornersSquareOptions: {
-                gradient: {
-                    type: "radial",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.gradient.color1") {
-        qrCode.update({
-            cornersSquareOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: data,
-                        },
-                        {
-                            offset: 1,
-                            color: cornersSquareOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.gradient.color2") {
-        qrCode.update({
-            cornersSquareOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: cornersSquareOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: data,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersSquareOptionsHelper.gradient.rotation") {
-        qrCode.update({
-            cornersSquareOptions: {
-                gradient: {
-                    rotation: (cornersSquareOptionsHelper.gradient.rotation / 180) * Math.PI,
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.colorType.gradient" && data) {
-        const showElements = document.getElementsByClassName(
-            "cornersDotOptionsHelper.colorType.gradient"
-        );
-        const hideElements = document.getElementsByClassName(
-            "cornersDotOptionsHelper.colorType.single"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            cornersDotOptions: {
-                color: undefined,
-                gradient: {
-                    type: cornersDotOptionsHelper.gradient.linear ? "linear" : "radial",
-                    rotation: (cornersDotOptionsHelper.gradient.rotation / 180) * Math.PI,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: cornersDotOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: cornersDotOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.colorType.single" && data) {
-        const showElements = document.getElementsByClassName(
-            "cornersDotOptionsHelper.colorType.single"
-        );
-        const hideElements = document.getElementsByClassName(
-            "cornersDotOptionsHelper.colorType.gradient"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            cornersDotOptions: {
-                color: state.cornersDotOptions.color,
-                gradient: null,
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.gradient.linear" && data) {
-        qrCode.update({
-            cornersDotOptions: {
-                gradient: {
-                    type: "linear",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.gradient.radial" && data) {
-        qrCode.update({
-            cornersDotOptions: {
-                gradient: {
-                    type: "radial",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.gradient.color1") {
-        qrCode.update({
-            cornersDotOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: data,
-                        },
-                        {
-                            offset: 1,
-                            color: cornersDotOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.gradient.color2") {
-        qrCode.update({
-            cornersDotOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: cornersDotOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: data,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "cornersDotOptionsHelper.gradient.rotation") {
-        qrCode.update({
-            cornersDotOptions: {
-                gradient: {
-                    rotation: (cornersDotOptionsHelper.gradient.rotation / 180) * Math.PI,
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.colorType.gradient" && data) {
-        const showElements = document.getElementsByClassName(
-            "backgroundOptionsHelper.colorType.gradient"
-        );
-        const hideElements = document.getElementsByClassName(
-            "backgroundOptionsHelper.colorType.single"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            backgroundOptions: {
-                color: undefined,
-                gradient: {
-                    type: backgroundOptionsHelper.gradient.linear ? "linear" : "radial",
-                    rotation: (backgroundOptionsHelper.gradient.rotation / 180) * Math.PI,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: backgroundOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: backgroundOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.colorType.single" && data) {
-        const showElements = document.getElementsByClassName(
-            "backgroundOptionsHelper.colorType.single"
-        );
-        const hideElements = document.getElementsByClassName(
-            "backgroundOptionsHelper.colorType.gradient"
-        );
-
-        Array.from(showElements).forEach(element => {
-            element.style.visibility = "visible";
-            element.style.height = "auto";
-        });
-
-        Array.from(hideElements).forEach(element => {
-            element.style.visibility = "hidden";
-            element.style.height = "0";
-        });
-
-        qrCode.update({
-            backgroundOptions: {
-                color: state.backgroundOptions.color,
-                gradient: null,
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.gradient.linear" && data) {
-        qrCode.update({
-            backgroundOptions: {
-                gradient: {
-                    type: "linear",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.gradient.radial" && data) {
-        qrCode.update({
-            backgroundOptions: {
-                gradient: {
-                    type: "radial",
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.gradient.color1") {
-        qrCode.update({
-            backgroundOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: data,
-                        },
-                        {
-                            offset: 1,
-                            color: backgroundOptionsHelper.gradient.color2,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.gradient.color2") {
-        qrCode.update({
-            backgroundOptions: {
-                gradient: {
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: backgroundOptionsHelper.gradient.color1,
-                        },
-                        {
-                            offset: 1,
-                            color: data,
-                        },
-                    ],
-                },
-            },
-        });
-        return;
-    }
-
-    if (field === "backgroundOptionsHelper.gradient.rotation") {
-        qrCode.update({
-            backgroundOptions: {
-                gradient: {
-                    rotation: (backgroundOptionsHelper.gradient.rotation / 180) * Math.PI,
-                },
-            },
-        });
-        return;
-    }
-
+    // Default: update with the full state
     qrCode.update(state);
 });
 
@@ -665,28 +224,20 @@ document.getElementById("qr-download").onclick = () => {
 };
 
 //Download options
-document.getElementById("export-options").addEventListener("click", function () {
-    const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(qrCode._options))}`;
-    this.setAttribute("href", dataStr);
-    this.setAttribute("download", "options.json");
-});
+// document.getElementById("export-options").addEventListener("click", function () {
+//     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(qrCode._options))}`;
+//     this.setAttribute("href", dataStr);
+//     this.setAttribute("download", "options.json");
+// });
 
 //Accordion
-let acc = document.getElementsByClassName("accordion");
+const acc = document.getElementsByClassName("accordion");
 
 for (let i = 0; i < acc.length; i++) {
-    if (acc[i].classList.contains("accordion--open")) {
-        continue;
-    }
-
     acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
+        this.classList.toggle("accordion--open");
 
         const panel = this.nextElementSibling;
-        if (panel.style.display === "grid") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "grid";
-        }
+        panel.classList.toggle("panel--open");
     });
 }
