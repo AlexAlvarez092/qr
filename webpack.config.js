@@ -36,7 +36,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: srcPath + "/index.html",
-            favicon: srcPath + "/assets/qr_trans.png",
+            favicon: srcPath + "/assets/icon.png",
         }),
         new MiniCssExtractPlugin({
             filename: "index.[contenthash].css",

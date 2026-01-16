@@ -1,4 +1,4 @@
-import { flatToNested, nestedToFlat } from "./tools";
+import { flatToNested, nestedToFlat } from "./file-utils";
 
 // Constants for HTML attributes
 const ATTR_NODE = "node";
