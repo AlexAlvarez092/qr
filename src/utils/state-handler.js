@@ -16,7 +16,9 @@ export function setupStateHandler(nodesBinder, qrCode, typeNumberInput, modeSele
 
         // Handle image field
         handleImageUpdate(field, data, qrCode);
-        if (field === "image") return;
+        if (field === "image") {
+            return;
+        }
 
         // Configuration for each options group
         const optionsConfig = {

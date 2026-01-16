@@ -33,7 +33,7 @@ export function setupStylePickers() {
                 // Update hidden select and trigger change
                 const value = btn.dataset.value;
                 targetSelect.value = value;
-                targetSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                targetSelect.dispatchEvent(new window.Event("change", { bubbles: true }));
             });
         });
     });

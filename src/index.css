@@ -1,7 +1,3 @@
-/* ============================================
-   QR STUDIO - Modern Dark Theme (Tailwind v4)
-   ============================================ */
-
 @import "tailwindcss";
 
 /* Custom theme configuration */
@@ -34,22 +30,6 @@ body {
 /* QR Code glow effect */
 .qr-glow {
     box-shadow: 0 0 40px -10px rgba(20, 156, 184, 0.3);
-}
-
-/* Range input styling */
-input[type="range"] {
-    -webkit-appearance: none;
-    background: #343841;
-    height: 4px;
-    border-radius: 2px;
-}
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #149cb8;
-    cursor: pointer;
 }
 
 /* Accordion state - panel hidden by default */
