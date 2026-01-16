@@ -224,6 +224,27 @@ nodesBinder.onStateUpdate(({ field, data }) => {
             return;
         }
 
+        // Handle transparent color type selection
+        if (field === `${prefix}.colorType.transparent` && data) {
+            // Hide both single and gradient
+            Array.from(document.getElementsByClassName(`${prefix}.colorType.single`)).forEach(
+                el => {
+                    el.style.visibility = "hidden";
+                    el.style.height = "0";
+                }
+            );
+            Array.from(document.getElementsByClassName(`${prefix}.colorType.gradient`)).forEach(
+                el => {
+                    el.style.visibility = "hidden";
+                    el.style.height = "0";
+                }
+            );
+            qrCode.update({
+                [optionKey]: null,
+            });
+            return;
+        }
+
         // Handle gradient type: linear
         if (field === `${prefix}.gradient.linear` && data) {
             qrCode.update({ [optionKey]: { gradient: { type: "linear" } } });
