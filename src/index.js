@@ -215,6 +215,8 @@ nodesBinder.onStateUpdate(({ field, data }) => {
         // Handle single color type selection
         if (field === `${prefix}.colorType.single` && data) {
             toggleColorTypeVisibility(`${prefix}.colorType.single`, `${prefix}.colorType.gradient`);
+            // Enable color input
+            document.getElementById("form-background-color").disabled = false;
             qrCode.update({
                 [optionKey]: {
                     color: state[optionKey].color,
@@ -239,8 +241,10 @@ nodesBinder.onStateUpdate(({ field, data }) => {
                     el.style.height = "0";
                 }
             );
+            // Disable color input
+            document.getElementById("form-background-color").disabled = true;
             qrCode.update({
-                [optionKey]: null,
+                [optionKey]: { color: null, gradient: null },
             });
             return;
         }
@@ -320,6 +324,9 @@ nodesBinder.onStateUpdate(({ field, data }) => {
     }
 
     // Default: update with the full state
+    if (backgroundOptionsHelper?.colorType?.transparent) {
+        state.backgroundOptions = { color: null };
+    }
     qrCode.update(state);
 });
 
