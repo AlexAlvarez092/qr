@@ -1260,46 +1260,15 @@ https://alexalvarez092.github.io/qr/</textarea
                     </div>
                 </div>
                 <!-- Export Command Bar -->
-                <div class="fixed bottom-30 flex justify-center pointer-events-none">
-                    <div
-                        class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-2xl p-3 flex items-center gap-4 shadow-2xl pointer-events-auto"
+                <div class="fixed bottom-30 flex justify-center">
+                    <button
+                        type="button"
+                        class="bg-primary hover:bg-primary/90 text-white font-bold px-8 py-3 rounded-xl flex items-center gap-2 transition-all"
+                        id="qr-download"
                     >
-                        <div
-                            class="flex bg-slate-100 dark:bg-background-dark p-1 rounded-xl border border-slate-200 dark:border-border-dark"
-                            id="qr-export-formats"
-                        >
-                            <button
-                                type="button"
-                                class="qr-export__format px-6 py-2.5 text-xs font-bold rounded-lg transition-all bg-white dark:bg-surface-dark shadow-sm active"
-                                data-format="png"
-                            >
-                                PNG
-                            </button>
-                            <button
-                                type="button"
-                                class="qr-export__format px-6 py-2.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-primary"
-                                data-format="jpeg"
-                            >
-                                JPEG
-                            </button>
-                            <button
-                                type="button"
-                                class="qr-export__format px-6 py-2.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-primary"
-                                data-format="svg"
-                            >
-                                SVG
-                            </button>
-                        </div>
-                        <div class="h-8 w-px bg-slate-200 dark:border-border-dark"></div>
-                        <button
-                            type="button"
-                            class="bg-primary hover:bg-primary/90 text-white font-bold px-8 py-3 rounded-xl flex items-center gap-2 transition-all"
-                            id="qr-download"
-                        >
-                            <span class="material-symbols-outlined text-sm">download</span>
-                            EXPORT ASSET
-                        </button>
-                    </div>
+                        <span class="material-symbols-outlined text-sm">download</span>
+                        EXPORT ASSET
+                    </button>
                 </div>
 
                 <!-- Footer -->
@@ -1310,12 +1279,5 @@ https://alexalvarez092.github.io/qr/</textarea
                 </footer>
             </section>
         </main>
-
-        <!-- Hidden select for extension (used by JS) -->
-        <select id="qr-extension" class="hidden">
-            <option value="png" selected>PNG</option>
-            <option value="jpeg">JPEG</option>
-            <option value="svg">SVG</option>
-        </select>
     </body>
 </html>

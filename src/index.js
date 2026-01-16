@@ -403,31 +403,14 @@ colorResetConfig.forEach(({ inputId, buttonId, optionKey }) => {
     };
 });
 
-// Export format selection logic (no hidden select)
+const exportFormat = "png";
 
-function setActiveExportFormat(format) {
-    exportFormat = format;
-    document.querySelectorAll(".qr-export__format").forEach(btn => {
-        if (btn.dataset.format === format) {
-            btn.classList.add("active");
-        } else {
-            btn.classList.remove("active");
-        }
-    });
-}
+const downloadButton = document.getElementById("qr-download");
 
-let exportFormat = "png";
-document.querySelectorAll(".qr-export__format").forEach(btn => {
-    btn.addEventListener("click", function () {
-        document.querySelectorAll(".qr-export__format").forEach(b => b.classList.remove("active"));
-        this.classList.add("active");
-        exportFormat = this.dataset.format;
-    });
-});
-
-document.getElementById("qr-download").onclick = () => {
+downloadButton.addEventListener("click", () => {
+    console.log("Downloading QR code as", exportFormat);
     qrCode.download({ extension: exportFormat, name: "qr-code-styling" });
-};
+});
 
 // Style picker buttons (visual style selection)
 document.querySelectorAll(".style-picker").forEach(picker => {
@@ -450,20 +433,11 @@ document.querySelectorAll(".style-picker").forEach(picker => {
     });
 });
 
-//Download options
-// document.getElementById("export-options").addEventListener("click", function () {
-//     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(qrCode._options))}`;
-//     this.setAttribute("href", dataStr);
-//     this.setAttribute("download", "options.json");
-// });
-
 //Accordion
 const acc = document.getElementsByClassName("accordion");
 
 for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
-        const isOpening = !this.classList.contains("accordion--open");
-
         // Close all other accordions
         for (let j = 0; j < acc.length; j++) {
             if (acc[j] !== this) {
