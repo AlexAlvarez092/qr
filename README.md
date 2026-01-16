@@ -64,6 +64,11 @@ This project is a fork of [qr-code-styling demo](https://github.com/kozakdenys/q
 - **Refactored `nodes-binder.js`** - Modernized with ES2022 private fields (`#`), JSDoc documentation, and better error handling
 - **Refactored `tools.js`** - Converted callback-based `getSrcFromFile` to Promise-based, removed unused `getValueViaDotNotation` function
 
+### New Features
+
+- **Dark Mode** - Added toggle for dark mode styling
+- **Transparent Background Option** - Added option to generate QR codes with transparent backgrounds
+
 ### Bug Fixes
 
 - **Fixed `getPerceptualBrightness`** - Corrected `substring(5, 6)` to `substring(5, 7)` for proper blue channel parsing
@@ -79,6 +84,7 @@ This project is a fork of [qr-code-styling demo](https://github.com/kozakdenys/q
 ### Removed Features
 
 - **Google Analytics** - Removed tracking code from the original project
+- **Download format selection** - Removed the option to select download format (PNG, SVG, etc.); now defaults to PNG onlys
 
 ## Acknowledgements
 
