@@ -6,7 +6,7 @@ import { updateModeOptions, updateTypeNumberMin } from "./utils/qr-options-updat
 import { setupImageReset } from "./utils/image-handler.js";
 import { setupColorResets } from "./utils/color-management.js";
 import { setupDownload } from "./utils/download.js";
-import { setupAccordion, setupStylePickers, setupThemeSwitcher } from "./utils/ui-components.js";
+import { setupAccordion, setupStylePickers, setupThemeSwitcher, setupMobileDrawer } from './utils/ui-components.js';
 
 const form = document.getElementById("form");
 
@@ -51,6 +51,7 @@ setupDownload(downloadButton, qrCode, exportFormat);
 // UI components
 setupStylePickers();
 setupAccordion(document.getElementsByClassName("accordion"));
+setupMobileDrawer();
 
 // Theme switcher
 const themeSwitch = document.getElementById("theme-switch");

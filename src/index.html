@@ -28,6 +28,13 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
+                <!-- Mobile Menu Button -->
+                <button
+                    id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                >
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
                 <label
                     for="theme-switch"
                     class="flex items-center gap-2 cursor-pointer select-none"
@@ -53,9 +60,10 @@
 
         <!-- Main Layout -->
         <main class="flex h-screen pt-14 overflow-hidden">
-            <!-- Config Panel -->
+            <!-- Config Panel - Hidden on mobile, visible on md+ -->
             <section
-                class="w-120 shrink-0 overflow-y-auto no-scrollbar border-r border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-[#181a1e] p-6"
+                id="config-panel"
+                class="md:block w-80 md:w-96 lg:w-120 shrink-0 overflow-y-auto no-scrollbar border-r border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-[#181a1e] p-6 pt-20 md:pt-6 md:relative md:translate-x-0 fixed inset-y-0 left-0 z-40 transform -translate-x-full md:transform-none transition-transform"
             >
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold mb-1">Customize QR</h2>
@@ -1246,20 +1254,21 @@ https://alexalvarez092.github.io/qr/</textarea
 
             <!-- Preview Area -->
             <section
-                class="flex-1 relative flex flex-col items-center justify-center bg-slate-100 dark:bg-background-dark p-12"
+                class="flex-1 relative flex flex-col justify-center items-center gap-4 md:gap-8 bg-slate-100 dark:bg-background-dark p-6 md:p-12 preview-section"
             >
                 <!-- Emissive Background Accent -->
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-primary/10 blur-[120px] rounded-full pointer-events-none"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-125 h-64 md:h-125 bg-primary/10 blur-[120px] rounded-full pointer-events-none"
                 ></div>
                 <div class="relative group">
                     <!-- QR Code Frame -->
                     <div
-                        class="bg-white dark:bg-surface-dark p-12 rounded-3xl border border-slate-200 dark:border-border-dark qr-glow relative z-10"
+                        class="bg-white dark:bg-surface-dark p-6 md:p-12 rounded-3xl border border-slate-200 dark:border-border-dark qr-glow relative z-10"
                     >
                         <div
-                            class="w-85 h-85 flex items-center justify-center"
+                            class="flex items-center justify-center"
                             id="qr-code-generated"
+                            style="width: 80vw; height: 80vw; max-width: 256px; max-height: 256px"
                         ></div>
                     </div>
                     <!-- Live Status Indicator -->
@@ -1271,24 +1280,54 @@ https://alexalvarez092.github.io/qr/</textarea
                     </div>
                 </div>
                 <!-- Export Command Bar -->
-                <div class="fixed bottom-30 flex justify-center">
+                <div class="flex justify-center">
                     <button
                         type="button"
-                        class="bg-primary hover:bg-primary/90 text-white font-bold px-8 py-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
+                        class="bg-primary hover:bg-primary/90 text-white font-bold px-4 py-2 md:px-8 md:py-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
                         id="qr-download"
                     >
                         <span class="material-symbols-outlined text-sm">download</span>
                         EXPORT ASSET
                     </button>
                 </div>
-
-                <!-- Footer -->
-                <footer
-                    class="fixed bottom-2 flex justify-center pointer-events-none transform text-center text-xs text-slate-400 dark:text-slate-600 font-mono"
-                >
-                    Made with 🍺 by Alex Alvarez
-                </footer>
             </section>
         </main>
+
+        <!-- Mobile Drawer Overlay -->
+        <div
+            id="mobile-drawer"
+            class="fixed inset-0 z-40 md:hidden bg-black/50 opacity-0 pointer-events-none transition-opacity"
+        >
+            <div
+                class="absolute left-0 top-0 h-full w-72 sm:w-80 bg-slate-50 dark:bg-[#181a1e] shadow-xl transform -translate-x-full transition-transform overflow-y-auto"
+            >
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-2xl font-bold">Customize QR</h2>
+                        <button
+                            id="close-drawer-btn"
+                            class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                        >
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">
+                        Precision styling for your digital identity.
+                    </p>
+                    <div class="flex flex-col gap-4">
+                        <form id="mobile-form" class="flex flex-col gap-4">
+                            <!-- Mobile form content - will be moved here -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer
+            class="fixed bottom-0 z-40 w-full flex justify-center pointer-events-none px-6 py-3 transform text-center text-xs text-slate-400 dark:text-slate-600 font-mono"
+        >
+            Made with 🍺 by Alex Alvarez
+        </footer>
     </body>
 </html>

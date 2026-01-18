@@ -57,3 +57,35 @@ export function setupThemeSwitcher(themeSwitch, themeSwitchKnob, htmlTag) {
 
     window.addEventListener("DOMContentLoaded", updateThemeSwitchUI);
 }
+
+export function setupMobileDrawer() {
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const panel = document.getElementById("config-panel");
+    const overlay = document.createElement("div");
+    overlay.className =
+        "fixed inset-0 bg-black/50 z-30 md:hidden opacity-0 pointer-events-none transition-opacity";
+    document.body.appendChild(overlay);
+
+    let isOpen = false;
+
+    function openDrawer() {
+        if (isOpen) return;
+        isOpen = true;
+        panel.classList.remove("-translate-x-full");
+        panel.classList.add("translate-x-0");
+        overlay.classList.remove("opacity-0", "pointer-events-none");
+        overlay.classList.add("opacity-100", "pointer-events-auto");
+    }
+
+    function closeDrawer() {
+        if (!isOpen) return;
+        isOpen = false;
+        panel.classList.remove("translate-x-0");
+        panel.classList.add("-translate-x-full");
+        overlay.classList.remove("opacity-100", "pointer-events-auto");
+        overlay.classList.add("opacity-0", "pointer-events-none");
+    }
+
+    menuBtn.addEventListener("click", openDrawer);
+    overlay.addEventListener("click", closeDrawer);
+}
