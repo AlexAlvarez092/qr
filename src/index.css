@@ -61,11 +61,3 @@ body {
     border-width: 2px;
     border-color: var(--color-primary);
 }
-
-/* Landscape orientation adjustments */
-@media (orientation: landscape) and (max-height: 500px) {
-    .preview-section {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-}

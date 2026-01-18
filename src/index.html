@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="dark" lang="en">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,62 +12,27 @@
 
         <title>QR Studio</title>
     </head>
-    <body
-        class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased"
-    >
+    <body class="bg-background-dark text-slate-100 antialiased flex flex-col min-h-screen">
         <!-- Header -->
-        <header
-            class="fixed top-0 z-50 w-full border-b border-slate-200 dark:border-border-dark bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3 flex items-center justify-between"
-        >
+        <header class="px-6 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="bg-primary p-1 rounded-lg text-white">
+                <div class="bg-primary p-1.5 rounded-lg text-white">
                     <span class="material-symbols-outlined block">qr_code_2</span>
                 </div>
                 <div>
                     <h1 class="text-lg font-bold tracking-tight">QR STUDIO</h1>
                 </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <!-- Mobile Menu Button -->
-                <button
-                    id="mobile-menu-btn"
-                    class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                >
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-                <label
-                    for="theme-switch"
-                    class="flex items-center gap-2 cursor-pointer select-none"
-                >
-                    <span class="material-symbols-outlined text-slate-400 dark:text-slate-100"
-                        >light_mode</span
-                    >
-                    <input type="checkbox" id="theme-switch" class="hidden" />
-                    <span
-                        class="relative w-10 h-6 flex items-center bg-slate-200 dark:bg-slate-700 rounded-full p-1 transition-colors"
-                    >
-                        <span
-                            id="theme-switch-knob"
-                            class="absolute left-1 top-1 w-4 h-4 bg-white dark:bg-primary rounded-full shadow transition-all"
-                        ></span>
-                    </span>
-                    <span class="material-symbols-outlined text-slate-400 dark:text-yellow-400"
-                        >dark_mode</span
-                    >
-                </label>
+                <div class="text-xs text-slate-600 font-mono">Made with 🍺 by Alex Alvarez</div>
             </div>
         </header>
 
         <!-- Main Layout -->
-        <main class="flex h-screen pt-14 overflow-hidden">
-            <!-- Config Panel - Hidden on mobile, visible on md+ -->
-            <section
-                id="config-panel"
-                class="md:block w-80 md:w-96 lg:w-120 shrink-0 overflow-y-auto no-scrollbar border-r border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-[#181a1e] p-6 pt-20 md:pt-6 md:relative md:translate-x-0 fixed inset-y-0 left-0 z-40 transform -translate-x-full md:transform-none transition-transform"
-            >
+        <main class="flex overflow-hidden flex-1 flex-col lg:flex-row">
+            <!-- Config Panel -->
+            <section class="w-full lg:w-96 shrink-0 overflow-y-auto no-scrollbar p-6">
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold mb-1">Customize QR</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">
+                    <p class="text-sm text-slate-400">
                         Precision styling for your digital identity.
                     </p>
                 </div>
@@ -75,7 +40,7 @@
                     <form id="form" class="flex flex-col gap-4">
                         <!-- Main Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -107,7 +72,7 @@
                                         node-change-event="oninput"
                                         id="form-data"
                                         placeholder="Enter your URL or text..."
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none resize-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none resize-none"
                                         rows="2"
                                     >
 https://alexalvarez092.github.io/qr/</textarea
@@ -127,7 +92,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                             min="100"
                                             max="10000"
                                             value="300"
-                                            class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                            class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                         />
                                     </div>
                                     <div class="space-y-2">
@@ -143,7 +108,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                             min="100"
                                             max="10000"
                                             value="300"
-                                            class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                            class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                         />
                                     </div>
                                 </div>
@@ -160,7 +125,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="10000"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -168,7 +133,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- Dots Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -200,7 +165,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="square"
                                             title="Square"
                                         >
@@ -214,7 +179,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="dots"
                                             title="Dots"
                                         >
@@ -228,7 +193,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="rounded"
                                             title="Rounded"
                                         >
@@ -242,7 +207,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn active aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn active aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="extra-rounded"
                                             title="Extra Rounded"
                                         >
@@ -256,7 +221,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="classy"
                                             title="Classy"
                                         >
@@ -270,7 +235,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all text-slate-500"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all text-slate-500"
                                             data-value="classy-rounded"
                                             title="Classy Rounded"
                                         >
@@ -334,7 +299,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                     <div class="flex items-center gap-2">
                                         <div
-                                            class="flex items-center gap-2 bg-slate-50 dark:bg-background-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark flex-1"
+                                            class="flex items-center gap-2 bg-background-dark p-2 rounded-lg border border-border-dark flex-1"
                                         >
                                             <input
                                                 node="dotsOptions.color"
@@ -348,7 +313,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         <button
                                             type="button"
                                             id="button-reset-dots-color"
-                                            class="px-4 py-2 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-background-dark transition-colors text-sm"
+                                            class="px-4 py-2 rounded-lg border border-border-dark hover:bg-background-dark transition-colors text-sm"
                                         >
                                             Reset
                                         </button>
@@ -427,7 +392,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="360"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -435,7 +400,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- Corners Square Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -467,7 +432,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value=""
                                             title="None"
                                         >
@@ -484,7 +449,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="square"
                                             title="Square"
                                         >
@@ -498,7 +463,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="dot"
                                             title="Dot"
                                         >
@@ -512,7 +477,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn active aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn active aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="extra-rounded"
                                             title="Extra Rounded"
                                         >
@@ -577,7 +542,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                     <div class="flex items-center gap-2">
                                         <div
-                                            class="flex items-center gap-2 bg-slate-50 dark:bg-background-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark flex-1"
+                                            class="flex items-center gap-2 bg-background-dark p-2 rounded-lg border border-border-dark flex-1"
                                         >
                                             <input
                                                 node="cornersSquareOptions.color"
@@ -591,7 +556,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         <button
                                             type="button"
                                             id="button-reset-corners-square-color"
-                                            class="px-4 py-2 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-background-dark transition-colors text-sm"
+                                            class="px-4 py-2 rounded-lg border border-border-dark hover:bg-background-dark transition-colors text-sm"
                                         >
                                             Reset
                                         </button>
@@ -670,7 +635,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="360"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -678,7 +643,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- Corners Dot Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -710,7 +675,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value=""
                                             title="None (inherit from dots)"
                                         >
@@ -727,7 +692,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="square"
                                             title="Square"
                                         >
@@ -741,7 +706,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         </button>
                                         <button
                                             type="button"
-                                            class="style-picker__btn active aspect-square bg-slate-100 dark:bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
+                                            class="style-picker__btn active aspect-square bg-background-dark rounded-lg border border-transparent hover:border-primary/30 flex items-center justify-center cursor-pointer transition-all"
                                             data-value="dot"
                                             title="Dot"
                                         >
@@ -803,7 +768,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                     <div class="flex items-center gap-2">
                                         <div
-                                            class="flex items-center gap-2 bg-slate-50 dark:bg-background-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark flex-1"
+                                            class="flex items-center gap-2 bg-background-dark p-2 rounded-lg border border-border-dark flex-1"
                                         >
                                             <input
                                                 node="cornersDotOptions.color"
@@ -817,7 +782,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         <button
                                             type="button"
                                             id="button-reset-corners-dot-color"
-                                            class="px-4 py-2 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-background-dark transition-colors text-sm"
+                                            class="px-4 py-2 rounded-lg border border-border-dark hover:bg-background-dark transition-colors text-sm"
                                         >
                                             Reset
                                         </button>
@@ -896,7 +861,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="360"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -904,7 +869,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- Background Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -975,7 +940,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     >
                                     <div class="flex items-center gap-2">
                                         <div
-                                            class="flex items-center gap-2 bg-slate-50 dark:bg-background-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark flex-1"
+                                            class="flex items-center gap-2 bg-background-dark p-2 rounded-lg border border-border-dark flex-1"
                                         >
                                             <input
                                                 node="backgroundOptions.color"
@@ -989,7 +954,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         <button
                                             type="button"
                                             id="button-reset-background-color"
-                                            class="px-4 py-2 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-background-dark transition-colors text-sm"
+                                            class="px-4 py-2 rounded-lg border border-border-dark hover:bg-background-dark transition-colors text-sm"
                                         >
                                             Reset
                                         </button>
@@ -1068,7 +1033,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="360"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -1076,7 +1041,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- Image Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -1113,14 +1078,14 @@ https://alexalvarez092.github.io/qr/</textarea
                                             accept="image/*"
                                             class="grow text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-medium file:cursor-pointer"
                                         />
-                                        <button
-                                            type="button"
-                                            id="button-cancel"
-                                            class="px-4 py-2 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-background-dark transition-colors text-sm"
-                                        >
-                                            Reset
-                                        </button>
                                     </div>
+                                    <button
+                                        type="button"
+                                        id="button-cancel"
+                                        class="px-4 py-2 rounded-lg border border-border-dark hover:bg-background-dark transition-colors text-sm"
+                                    >
+                                        Reset
+                                    </button>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <label
@@ -1151,7 +1116,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         max="1"
                                         step="0.1"
                                         value="0.4"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                                 <div class="space-y-2">
@@ -1167,7 +1132,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="10000"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -1175,7 +1140,7 @@ https://alexalvarez092.github.io/qr/</textarea
 
                         <!-- QR Options -->
                         <div
-                            class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all hover:border-primary/50"
+                            class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden transition-all hover:border-primary/50"
                         >
                             <button
                                 type="button"
@@ -1210,7 +1175,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                         min="0"
                                         max="40"
                                         value="0"
-                                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                                 <div class="space-y-2">
@@ -1222,7 +1187,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     <select
                                         node="qrOptions.mode"
                                         id="form-qr-mode"
-                                        class="w-full h-12 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer transition-all shadow-sm hover:border-primary/50 focus:border-primary"
+                                        class="w-full h-12 bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer transition-all shadow-sm hover:border-primary/50 focus:border-primary"
                                     >
                                         <option value="Numeric">Numeric</option>
                                         <option value="Alphanumeric">Alphanumeric</option>
@@ -1238,7 +1203,7 @@ https://alexalvarez092.github.io/qr/</textarea
                                     <select
                                         node="qrOptions.errorCorrectionLevel"
                                         id="form-qr-error-correction-level"
-                                        class="w-full h-12 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer transition-all shadow-sm hover:border-primary/50 focus:border-primary"
+                                        class="w-full h-12 bg-background-dark border border-border-dark rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer transition-all shadow-sm hover:border-primary/50 focus:border-primary"
                                     >
                                         <option value="L">L (Low)</option>
                                         <option value="M">M (Medium)</option>
@@ -1254,36 +1219,19 @@ https://alexalvarez092.github.io/qr/</textarea
 
             <!-- Preview Area -->
             <section
-                class="flex-1 relative flex flex-col justify-center items-center gap-4 md:gap-8 bg-slate-100 dark:bg-background-dark p-6 md:p-12 preview-section"
+                class="flex-1 flex flex-col justify-center items-center gap-8 bg-background-dark p-6 lg:p-12"
             >
-                <!-- Emissive Background Accent -->
+                <!-- QR Code Frame -->
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-125 h-64 md:h-125 bg-primary/10 blur-[120px] rounded-full pointer-events-none"
-                ></div>
-                <div class="relative group">
-                    <!-- QR Code Frame -->
-                    <div
-                        class="bg-white dark:bg-surface-dark p-6 md:p-12 rounded-3xl border border-slate-200 dark:border-border-dark qr-glow relative z-10"
-                    >
-                        <div
-                            class="flex items-center justify-center"
-                            id="qr-code-generated"
-                            style="width: 80vw; height: 80vw; max-width: 256px; max-height: 256px"
-                        ></div>
-                    </div>
-                    <!-- Live Status Indicator -->
-                    <div
-                        class="absolute -top-4 -left-4 z-20 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-2 border-2 border-slate-100 dark:border-background-dark"
-                    >
-                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                        LIVE PREVIEW
-                    </div>
+                    class="bg-surface-dark p-6 lg:p-12 rounded-3xl border border-border-dark qr-glow relative z-10"
+                >
+                    <div class="flex items-center justify-center" id="qr-code-generated"></div>
                 </div>
                 <!-- Export Command Bar -->
                 <div class="flex justify-center">
                     <button
                         type="button"
-                        class="bg-primary hover:bg-primary/90 text-white font-bold px-4 py-2 md:px-8 md:py-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
+                        class="bg-primary hover:bg-primary/90 text-white font-bold px-4 py-2 lg:px-8 lg:py-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
                         id="qr-download"
                     >
                         <span class="material-symbols-outlined text-sm">download</span>
@@ -1292,42 +1240,5 @@ https://alexalvarez092.github.io/qr/</textarea
                 </div>
             </section>
         </main>
-
-        <!-- Mobile Drawer Overlay -->
-        <div
-            id="mobile-drawer"
-            class="fixed inset-0 z-40 md:hidden bg-black/50 opacity-0 pointer-events-none transition-opacity"
-        >
-            <div
-                class="absolute left-0 top-0 h-full w-72 sm:w-80 bg-slate-50 dark:bg-[#181a1e] shadow-xl transform -translate-x-full transition-transform overflow-y-auto"
-            >
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-8">
-                        <h2 class="text-2xl font-bold">Customize QR</h2>
-                        <button
-                            id="close-drawer-btn"
-                            class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                        >
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">
-                        Precision styling for your digital identity.
-                    </p>
-                    <div class="flex flex-col gap-4">
-                        <form id="mobile-form" class="flex flex-col gap-4">
-                            <!-- Mobile form content - will be moved here -->
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer
-            class="fixed bottom-0 z-40 w-full flex justify-center pointer-events-none px-6 py-3 transform text-center text-xs text-slate-400 dark:text-slate-600 font-mono"
-        >
-            Made with 🍺 by Alex Alvarez
-        </footer>
     </body>
 </html>
